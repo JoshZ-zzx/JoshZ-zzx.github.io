@@ -25,5 +25,16 @@
         <a href="https://github.com" target="_blank" class="card">GitHub</a>
         <a href="https://efzzz.pro" target="_blank" class="card">校园论坛</a>
     </div>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
 </body>
 </html>
