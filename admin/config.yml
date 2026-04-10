@@ -1,19 +1,1 @@
-backend:
-  name: git-gateway
-  repo: JoshZ-zzx/JoshZ-zzx.github.io
-  branch: main
-  site_domain: inspiring-cat-299a60.netlify.app
-load_config_file: false
 
-media_folder: "images"
-public_folder: "/images"
-
-collections:
-  - name: "links"
-    label: "Links Management"
-    files:
-      - file: "index.html"
-        label: "Home Links Edit"
-        name: "home"
-        fields:
-          - { label: "Body", name: "body", widget: "code", default_language: "html" }
