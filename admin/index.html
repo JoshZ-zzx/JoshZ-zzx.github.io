@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Josh's Admin</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      // 强制指定 Identity 寻找的 API 地址
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", () => {
+          // 这里的地址填 Netlify 分配给你的那个 xxx.netlify.app 地址
+          // 你可以在 Netlify 项目首页看到它
+          window.netlifyIdentity.setAPIurl("https://YOUR-SITE-NAME.netlify.app/.netlify/identity");
+        });
+      }
+    </script>
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
