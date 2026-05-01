@@ -118,9 +118,9 @@
 <div id="settingsModal" class="overlay">
     <div class="modal-card">
         <h3>游戏设置</h3>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin:15px 0;"><span>底分</span><input type="number" id="basePrice" value="0.5" class="input-num" step="0.1"></div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin:15px 0;"><span>封顶</span><input type="checkbox" id="isCapEnabled" onchange="toggleCapUI()"></div>
-        <div id="capValueRow" style="display:none; justify-content:space-between; align-items:center; margin:15px 0; color:var(--danger)"><span>上限</span><input type="number" id="capLimit" value="20" class="input-num"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin:15px 0;"><span>底分数值</span><input type="number" id="basePrice" value="0.5" class="input-num" step="0.1"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin:15px 0;"><span>是否封顶</span><input type="checkbox" id="isCapEnabled" onchange="toggleCapUI()"></div>
+        <div id="capValueRow" style="display:none; justify-content:space-between; align-items:center; margin:15px 0; color:var(--danger)"><span>支出上限</span><input type="number" id="capLimit" value="20" class="input-num"></div>
         <button class="btn-close" onclick="closeModal('settingsModal')" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; margin-top:10px;">确定</button>
     </div>
 </div>
@@ -130,7 +130,7 @@
         <div style="color:var(--gold); font-weight:bold; margin-bottom:8px;">💰 本局清算</div>
         <div id="winnerArea" style="color:var(--primary); font-size:22px; font-weight:bold; margin-bottom:12px"></div>
         <div id="billDetails" style="text-align:left"></div>
-        <button id="btnConfirmBill" class="btn-main" onclick="closeModal('billModal')" style="margin-top:15px">收钱继续 (Enter)</button>
+        <button id="btnConfirmBill" class="btn-main" onclick="closeModal('billModal')" style="margin-top:15px">收钱继续</button>
     </div>
 </div>
 
@@ -162,7 +162,7 @@
                 <div class="player-row ${p.isResting ? 'resting' : ''}">
                     <button class="btn-del" onclick="removePlayer('${p.id}')" tabindex="-1">×</button>
                     <button class="status-btn ${p.isResting ? '' : 'active'}" onclick="toggleRest('${p.id}')" tabindex="-1">
-                        ${p.isResting ? '休' : '在'}
+                        ${p.isResting ? '小憩' : '在线'}
                     </button>
                     <div class="player-info">
                         <input type="text" class="name-input" value="${p.name}" onchange="updatePlayerName('${p.id}', this.value)" tabindex="-1">
@@ -233,8 +233,8 @@
     }
 
     function updateHeader() {
-        document.getElementById('historyHead').innerHTML = '<th>局</th>' + 
-            players.map(p => `<th>${p.name.substring(0,2)}</th>`).join('') + '<th>删</th>';
+        document.getElementById('historyHead').innerHTML = '<th>No.</th>' + 
+            players.map(p => `<th>${p.name.substring(0,2)}</th>`).join('') + '<th>···</th>';
     }
 
     function updateHistoryTable() {
@@ -245,12 +245,12 @@
                 let v = round[p.id];
                 if (v === null || v === undefined) return '<td style="color:#ccc">-</td>';
                 return `<td style="color:${v > 0 ? 'var(--primary)' : 'var(--danger)'}; font-weight:${v > 0 ? 'bold' : 'normal'}">${v > 0 ? '+' : ''}${v.toFixed(1)}</td>`;
-            }).join('')}<td><button class="btn-action-del" onclick="deleteHistory(${originalIndex})">🗑️</button></td></tr>`;
+            }).join('')}<td><button class="btn-action-del" onclick="deleteHistory(${originalIndex})">Del</button></td></tr>`;
         }).join('');
     }
 
     function handleKey(e, currentIndex) {
-        if (['+', '=', 'b', 'B'].includes(e.key)) { e.preventDefault(); changeBomb(1); return; }
+        if (e.key === '=') { e.preventDefault(); changeBomb(1); return; }
         if (e.key === '-') { e.preventDefault(); changeBomb(-1); return; }
         if (e.key === 'Enter') {
             const allInputs = Array.from(document.querySelectorAll('.card-count'));
